@@ -8,23 +8,29 @@ use App\Controller\IndexController;
 use App\Controller\ProductController;
 
 $url = explode('?', $_SERVER['REQUEST_URI'])[0];
-echo $url . '<br>';
+
+function createRoute(string $controllerName, string $methodName)
+{
+    return [
+        'controller' => $controllerName,
+        'method' => $methodName,
+    ];
+}
 
 $routes = [
-    '/projeto-devstart/public/' => [
-        'controller' => IndexController::class,
-        'method' => 'indexAction',
-    ],
-    '/projeto-devstart/public/produtos' => [
-        'controller' => ProductController::class,
-        'method' => 'listAction',
-    ],
+    '/' => createRoute(IndexController::class, 'indexAction'),
+    '/produtos' => createRoute(ProductController::class, 'listAction'),
 ];
 
 if (false === isset($routes[$url])) {
-    $e = new ErrorController();
-    $e->notFoundAction();
+    // $e = new ErrorController();
+    // $e->notFoundAction();
+    ( new ErrorController() )->notFoundAction();
+    exit;
 }
 
-var_dump($routes[$url]);
+$controllerName = $routes[$url]['controller'];
+$methodName = $routes[$url]['method'];
+
+(new $controllerName())->$methodName();
 
