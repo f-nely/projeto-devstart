@@ -2,36 +2,51 @@
 
 include '../vendor/autoload.php';
 
-use App\Controller\CategoryController;
-use App\Controller\ErrorController;
-use App\Controller\IndexController;
-use App\Controller\ProductController;
+$database = 'db_store';
+$username = 'nelynely';
+$password = '2006si';
 
-$url = explode('?', $_SERVER['REQUEST_URI'])[0];
+$connection = new PDO("mysql:host=localhost;dbname={$database}", $username, $password);
 
-function createRoute(string $controllerName, string $methodName)
-{
-    return [
-        'controller' => $controllerName,
-        'method' => $methodName,
-    ];
+$query = 'SELECT * FROM tb_category;';
+
+$prepare = $connection->prepare($query);
+$prepare->execute();
+
+while ($registro = $prepare->fetchObject()) {
+    var_dump($registro);
 }
 
-$routes = [
-    '/' => createRoute(IndexController::class, 'indexAction'),
-    '/produtos' => createRoute(ProductController::class, 'listAction'),
-    '/produtos/novo' => createRoute(ProductController::class, 'addAction'),
-];
+// use App\Controller\CategoryController;
+// use App\Controller\ErrorController;
+// use App\Controller\IndexController;
+// use App\Controller\ProductController;
 
-if (false === isset($routes[$url])) {
-    // $e = new ErrorController();
-    // $e->notFoundAction();
-    ( new ErrorController() )->notFoundAction();
-    exit;
-}
+// $url = explode('?', $_SERVER['REQUEST_URI'])[0];
 
-$controllerName = $routes[$url]['controller'];
-$methodName = $routes[$url]['method'];
+// function createRoute(string $controllerName, string $methodName)
+// {
+//     return [
+//         'controller' => $controllerName,
+//         'method' => $methodName,
+//     ];
+// }
 
-(new $controllerName())->$methodName();
+// $routes = [
+//     '/' => createRoute(IndexController::class, 'indexAction'),
+//     '/produtos' => createRoute(ProductController::class, 'listAction'),
+//     '/produtos/novo' => createRoute(ProductController::class, 'addAction'),
+// ];
+
+// if (false === isset($routes[$url])) {
+//     // $e = new ErrorController();
+//     // $e->notFoundAction();
+//     ( new ErrorController() )->notFoundAction();
+//     exit;
+// }
+
+// $controllerName = $routes[$url]['controller'];
+// $methodName = $routes[$url]['method'];
+
+// (new $controllerName())->$methodName();
 
