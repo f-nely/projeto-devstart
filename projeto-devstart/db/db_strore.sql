@@ -33,6 +33,11 @@ VALUES
 ('Escritório', 'Canetas, Cadernos, Folhas, etc'),
 ('Eletrônicos', 'TVs, Som portátil, Caixa de som, etc');
 
+INSERT INTO tb_category
+(name, description)
+VALUES
+('Livros', 'Livros em geral');
+
 -- lista todas as categorias --
 SELECT * FROM tb_category;
 
