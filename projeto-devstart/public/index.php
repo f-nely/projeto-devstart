@@ -20,6 +20,8 @@ use App\Controller\ErrorController;
 
 $url = explode('?', $_SERVER['REQUEST_URI'])[0];
 
+$routes = include '../config/routes.php';
+
 if (false === isset($routes[$url])) {
     // $e = new ErrorController();
     // $e->notFoundAction();
