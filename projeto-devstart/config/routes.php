@@ -16,6 +16,7 @@ $routes = [
     '/' => createRoute(IndexController::class, 'indexAction'),
     '/produtos' => createRoute(ProductController::class, 'listAction'),
     '/produtos/novo' => createRoute(ProductController::class, 'addAction'),
+    '/categorias' => createRoute(CategoryController::class, 'listAction'),
 ];
 
 return $routes;
