@@ -1,1 +1,14 @@
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
 <h1>Editar Categoria</h1>
+
+<form action="" method="POST">
+    <label for="name">Nome</label>
+    <input type="text" name="name" id="name" value="<?php echo $data['name'];?>" class="form-control">
+
+    <label for="description">Descrição</label>
+    <textarea name="description" id="description" class="form-control"><?php echo $data['description'];?></textarea>
+
+    <button class="btn btn-primary">Atualizar</button>
+</form>
