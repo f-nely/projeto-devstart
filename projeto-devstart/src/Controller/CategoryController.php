@@ -21,7 +21,7 @@ class CategoryController extends AbstractController
 
     public function addAction(): void
     {
-        // parent::render('category/add');
+        parent::render('category/add');
     }
 
     public function editAction(): void
