@@ -20,10 +20,10 @@
     <textarea name="description" id="description" class="form-control mb-3"></textarea>
 
     <label for=value">Preço</label>
-    <input type="number" name="value" id="value" step="10.3" min="0" value="0" class="form-control mb-3">
+    <input type="number" name="value" id="value" min="0" class="form-control mb-3">
 
     <label for="quantity">Quantidade</label>
-    <input type="number" name="quantity" id="quantity" min="0" value="0" class="form-control mb-3">
+    <input type="number" name="quantity" id="quantity" min="0" class="form-control mb-3">
 
     <label for="photo">Foto</label>
     <input type="text" name="photo" id="photo" class="form-control mb-3">
