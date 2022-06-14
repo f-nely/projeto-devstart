@@ -42,7 +42,7 @@ class ProductController extends AbstractController
 
             $result->execute();
 
-            echo 'Pronto, produto adicionado.';
+            parent::renderMessage('Pronto, produto adicionado.');
         }
 
         $result = $con->prepare('SELECT * FROM tb_category');
@@ -62,9 +62,7 @@ class ProductController extends AbstractController
 
         $result->execute();
 
-        $message = 'Pronto, produto removido.';
-
-        include dirname(__DIR__) . '/View/_partials/message.php';
+        parent::renderMessage('Pronto, produto removido.');
     }
 
     public function editAction(): void
