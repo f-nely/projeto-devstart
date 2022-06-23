@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Dompdf\Dompdf;
+
 use App\Connection\Connection;
 
 class ProductController extends AbstractController
@@ -100,5 +102,53 @@ class ProductController extends AbstractController
         parent::render('product/edit', [
             'product' => $product->fetch(\PDO::FETCH_ASSOC),
         ]);
+    }
+
+    public function reportAction(): void
+    {
+        $con = Connection::getConnection();
+
+        $result = $con->prepare('SELECT prod.id, prod.name, prod.quantity, cat.name as category FROM tb_product prod INNER JOIN tb_category cat ON prod.category_id = cat.id');
+        $result->execute();
+
+        $content = '';
+
+        while ($product = $result->fetch(\PDO::FETCH_ASSOC)) {
+            extract($product);
+
+            $content .= "
+                <tr>
+                    <td>{$id}</td>
+                    <td>{$name}</td>
+                    <td>{$quantity}</td>
+                    <td>{$category}</td>
+                </tr>
+            ";
+        }
+
+        $html = "<h1>Relatórios de Produtos no Estoque</h1>
+        
+        <table border='1' width='100%'>
+            <thead>
+                <tr>
+                    <th>#ID</th>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Categoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                {$content}
+            </tbody>
+        </table>
+        ";
+
+        $pdf = new Dompdf();
+
+        $pdf->loadHtml($html);
+
+        $pdf->render();
+
+        $pdf->stream();
     }
 }
